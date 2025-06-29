@@ -41,9 +41,4 @@ function App() {
   );
 }
 
-// <FirstButton />
-//       <SecondButton />
-//       <ThirdButton />
-//       <FourthButton />
-
 export default App;
