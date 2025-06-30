@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Accordion from "./components/Accordion";
-import User from "./components/userDetail/user";
+import User from "./components/userDetail/User";
 
 const items = [
   {
