@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Accordion from "./components/Accordion";
+import User from "./components/userDetail/user";
 
 const items = [
   {
@@ -34,9 +36,19 @@ const items = [
 ];
 
 function App() {
+  const [sharedData, setSharedData] = useState("")
+  const [showOverlay, setShowOverlay] = useState(true)
+
+  const handleOverlay = (data) => {
+    setSharedData(data)
+    setShowOverlay(false)
+  }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-800">
-      <Accordion items={items} />
+    <div className="flex min-h-screen items-center justify-center relative bg-gray-800 py-10">
+      <div className="flex items-center justify-center absolute z-30 w-full h-full bg-gra-800/95">
+        {showOverlay && <User onSubmit={handleOverlay} />}
+      </div>
+      <Accordion items={items} sharedData={sharedData} />
     </div>
   );
 }

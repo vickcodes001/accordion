@@ -1,31 +1,35 @@
 import { useEffect, useState, useRef } from "react";
-import { GoChevronDown, GoChevronLeft, GoTrashcan, GoPencil } from "react-icons/go";
+import {
+  GoChevronDown,
+  GoChevronLeft,
+  GoTrashcan,
+  GoPencil,
+} from "react-icons/go";
 
-function Accordion({ items }) {
+function Accordion({ items, sharedData }) {
   const [expandedIndex, setExpandedIndex] = useState(-1);
-  const [image, setImage] = useState(null)
-  const fileInputRef = useRef()
+  const [image, setImage] = useState(null);
+  const fileInputRef = useRef();
 
   useEffect(() => {
-    const savedImage = localStorage.getItem("stored-image")
+    const savedImage = localStorage.getItem("stored-image");
     if (savedImage) {
-      setImage(savedImage)
+      setImage(savedImage);
     }
-      
-  }, [])
+  }, []);
 
   const handleImageChange = (event) => {
-    const file = event.target.files?.[0] // get the selected image of index 0
+    const file = event.target.files?.[0]; // get the selected image of index 0
     if (!file) return;
 
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
       setImage(base64);
-      localStorage.setItem("stored-image", base64)
-    }
-    reader.readAsDataURL(file)
-  }
+      localStorage.setItem("stored-image", base64);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleClick = (nextIndex) => {
     if (expandedIndex === nextIndex) {
@@ -36,13 +40,13 @@ function Accordion({ items }) {
   };
 
   const handleImageDelete = () => {
-    setImage(null)
-    localStorage.removeItem("stored-image")
-  }
+    setImage(null);
+    localStorage.removeItem("stored-image");
+  };
 
   const handleImageEdit = () => {
-    return fileInputRef.current.click()
-  }
+    return fileInputRef.current.click();
+  };
 
   const renderedItems = items.map((item, index) => {
     const isExpanded = index === expandedIndex;
@@ -76,7 +80,7 @@ function Accordion({ items }) {
       <div className="flex flex-col gap-10 lg:w-1/2 h-200 p-4">
         <h3 className="text-2xl lg:text-4xl text-center lg:text-left mt-5 md:text-4xl mb-5 lg:ml-5">
           Get to know more
-          <br /> about JIGGY{" "}
+          <br /> about {sharedData}{" "}
         </h3>
         <div>{renderedItems}</div>
       </div>
@@ -84,33 +88,44 @@ function Accordion({ items }) {
       <div className="flex justify-center lg:w-1/2 bg-gray-500 rounded-xl relative w-full h-120 lg:h-200">
         <div className="flex flex-col items-center justify-center relative rounded-xl shadow-lg  overflow-hidden w-[100%] h-[100%]">
           <div>
-            <input 
-            type="file" 
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            className="hidden w-full h-full"
-          />
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              className="hidden w-full h-full"
+            />
           </div>
           {/* upload button */}
           <button
             onClick={() => fileInputRef.current.click()}
-            className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
-              Upload Image
+            className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+          >
+            Upload Image
           </button>
           <div className="absolute z-20">
             {image && (
-            <img src={image} alt="Uploads" className="hover:scale-105 transition-all ease-in-out duration-500 z-10 w-full h-full" />
-          )}
+              <img
+                src={image}
+                alt="Uploads"
+                className="hover:scale-105 transition-all ease-in-out duration-500 z-10 w-full h-full"
+              />
+            )}
           </div>
-       </div>
+        </div>
 
         {/* edit and delete btn */}
         <div className="flex gap-3 absolute z-20 right-0 p-3">
-          <button onClick={handleImageEdit} className="px-4 py-2 bg-blue-600 text-white  rounded cursor-pointer">
+          <button
+            onClick={handleImageEdit}
+            className="px-4 py-2 bg-blue-600 text-white  rounded cursor-pointer"
+          >
             <GoPencil className="" />
           </button>
-          <button onClick={handleImageDelete} className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
+          <button
+            onClick={handleImageDelete}
+            className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+          >
             <GoTrashcan />
           </button>
         </div>
