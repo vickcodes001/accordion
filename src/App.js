@@ -36,18 +36,20 @@ const items = [
 ];
 
 function App() {
-  const [sharedData, setSharedData] = useState("")
-  const [showOverlay, setShowOverlay] = useState(true)
+  const [sharedData, setSharedData] = useState("");
+  const [showOverlay, setShowOverlay] = useState(true);
 
   const handleOverlay = (data) => {
-    setSharedData(data)
-    setShowOverlay(false)
-  }
+    setSharedData(data);
+    setShowOverlay(false);
+  };
   return (
     <div className="flex min-h-screen items-center justify-center relative bg-gray-800 py-10">
-      <div className="flex items-center justify-center absolute z-30 w-full h-full bg-gra-800/95">
-        {showOverlay && <User onSubmit={handleOverlay} />}
-      </div>
+      {showOverlay && (
+        <div className="flex items-center justify-center absolute z-30 w-full h-full bg-gray-800/95">
+          <User onSubmit={handleOverlay} />
+        </div>
+      )}
       <Accordion items={items} sharedData={sharedData} />
     </div>
   );
