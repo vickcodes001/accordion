@@ -6,7 +6,7 @@ import {
   GoPencil,
 } from "react-icons/go";
 
-function Accordion({ items, sharedData }) {
+function Accordion({ items, nickname }) {
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const [image, setImage] = useState(null);
   const fileInputRef = useRef();
@@ -78,11 +78,11 @@ function Accordion({ items, sharedData }) {
     <div className="flex flex-col-reverse md:flex-row max-w-6xl md-h-full mx-auto md:grid-cols-2 lg:w-full items-center justify-between rounded-md p-5 bg-white">
       {/* left div */}
       <div className="flex flex-col gap-10 lg:w-1/2 h-200 p-4">
-        <h3 className="text-2xl lg:text-4xl text-center lg:text-left mt-5 md:text-4xl mb-5 lg:ml-5">
+        <h3 className="text-3xl lg:text-4xl text-center lg:text-left mt-5 md:text-4xl mb-5 lg:ml-5">
           Get to know more
-          <br /> about {sharedData}{" "}
+          <br /> about {nickname}{" "}
         </h3>
-        <div>{renderedItems}</div>
+        <div className="mt-20">{renderedItems}</div>
       </div>
       {/* right div */}
       <div className="flex justify-center lg:w-1/2 bg-gray-500 rounded-xl relative w-full h-120 lg:h-200">
